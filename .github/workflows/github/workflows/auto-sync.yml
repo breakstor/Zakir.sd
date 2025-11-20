@@ -1,0 +1,55 @@
+name: Auto Sync Sudanese Assistant
+
+on:
+  # 1. تفعيل يدوي من واجهة GitHub
+  workflow_dispatch:
+    inputs:
+      chat_source:
+        description: 'رابط المحادثة أو المصدر'
+        required: true
+        default: 'https://chat-source.com'
+  
+  # 2. تفعيل تلقائي على فترات
+  schedule:
+    - cron: '0 */6 * * *'  # كل 6 ساعات
+    - cron: '0 12 * * 1'   # كل إثنين الساعة 12 ظهراً
+  
+  # 3. تفعيل عند التعديل على ملف معين
+  push:
+    paths:
+      - 'sync-trigger.txt'
+
+jobs:
+  sync-project-files:
+    runs-on: ubuntu-latest
+    steps:
+      - name: 📥 استنساخ المستودع
+        uses: actions/checkout@v4
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          
+      - name: 🐍 إعداد Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.9'
+          cache: 'pip'
+          
+      - name: 📦 تثبيت الاعتماديات
+        run: |
+          python -m pip install --upgrade pip
+          pip install requests beautifulsoup4 pygithub
+          
+      - name: 🔄 تشغيل سكريبت المزامنة
+        run: |
+          python scripts/sync_from_chat.py
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          CHAT_SOURCE: ${{ github.event.inputs.chat_source }}
+          
+      - name: 💾 حفظ التغييرات
+        run: |
+          git config --local user.email "action@github.com"
+          git config --local user.name "GitHub Action"
+          git add .
+          git diff --staged --quiet || git commit -m "🔄 Auto-sync: تحديث الملفات من المحادثة"
+          git push
