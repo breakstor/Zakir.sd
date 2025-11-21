@@ -1,0 +1,5 @@
+# ملف: app/proguard-rules.pro
+# Add project specific ProGuard rules here.
+-dontobfuscate
+-keepattributes Signature
+-keepattributes *Annotation*

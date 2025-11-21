@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="24dp"
+    android:height="24dp"
+    android:viewportWidth="24"
+    android:viewportHeight="24">
+    
+    <!-- خلفية علم السودان -->
+    <path android:fillColor="#D21020" android:pathData="M2,2h20v6H2z"/>
+    <path android:fillColor="#FFFFFF" android:pathData="M2,8h20v4H2z"/>
+    <path android:fillColor="#000000" android:pathData="M2,12h20v4H2z"/>
+    <path android:fillColor="#007229" android:pathData="M2,16h20v6H2z"/>
+    
+    <!-- كتاب في المقدمة -->
+    <path android:fillColor="#FFFFFF" android:pathData="M6,6h12v12H6z"/>
+    <path android:fillColor="#2E86AB" android:pathData="M8,8h8v8H8z"/>
+    <path android:fillColor="#FFFFFF" android:pathData="M10,10h4v1h-4z"/>
+    <path android:fillColor="#FFFFFF" android:pathData="M10,12h4v1h-4z"/>
+    <path android:fillColor="#FFFFFF" android:pathData="M10,14h4v1h-4z"/>
+    
+</vector>
